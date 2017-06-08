@@ -51,8 +51,22 @@ var BugAdd = React.createClass({
   render: function() {
     console.log("Rendering BugAdd");
     return (
-      <div>Hiển thị form để thêm bug ở đây.</div>
+      <div>
+        <form name="bugAdd">
+          <input type="text" name="owner" placeholder="Owner" />
+          <input type="text" name="title" placeholder="Title" />
+          <button onClick={this.handleSubmit}>Thêm Bug</button>
+        </form>
+      </div>
     )
+  },
+
+  handleSubmit: function(e) {
+    e.preventDefault();
+    var form = document.forms.bugAdd;
+    this.props.addBug({owner: form.owner.value, title: form.title.value, status: 'New', priority: 'P1'});
+    // xóa dữ liệu trong form input để người dùng nhập lại ở lần tiếp
+    form.owner.value = ""; form.title.value = "";
   }
 });
 
@@ -73,22 +87,17 @@ var BugList = React.createClass({
         <BugFilter />
         <hr />
         <BugTable bugs={this.state.bugs}/>
-        <button onClick={this.testNewBug}>Add Bug</button>
         <hr />
-        <BugAdd />
+        <BugAdd addBug={this.addBug} />
       </div>
     )
-  },
-
-  testNewBug: function() {
-    var nextId = this.state.bugs.length + 1;
-    this.addBug({id: nextId, priority: 'P2', status:'New', owner:'Long Đẹp Trai', title:'Quên xóa "console.log()" trong source code'})
   },
 
   addBug: function(bug) {
     console.log("Adding bug:", bug);
     // Chúng ta sẽ không sửa state thay vào đó sẽ copy state
     var bugsModified = this.state.bugs.slice();
+    bug.id = this.state.bugs.length + 1;
     bugsModified.push(bug);
     this.setState({bugs: bugsModified});
   }

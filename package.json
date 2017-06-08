@@ -6,9 +6,22 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codehub-vn/mern-tutorial"
+  },
+  "keywords": [
+    "MongoDB",
+    "Express.js",
+    "React",
+    "Node.js",
+    "MERN"
+  ],
   "author": "Codehub.vn - http://www.codehub.vn",
+  "homepage": "http://www.codehub.vn",
   "license": "MIT",
   "dependencies": {
+    "babel-preset-react": "^6.24.1",
     "express": "^4.15.3"
   }
 }

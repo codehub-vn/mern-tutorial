@@ -97,11 +97,20 @@ var BugList = React.createClass({
 
   addBug: function(bug) {
     console.log("Adding bug:", bug);
-    // Chúng ta sẽ không sửa state thay vào đó sẽ copy state
-    var bugsModified = this.state.bugs.slice();
-    bug.id = this.state.bugs.length + 1;
-    bugsModified.push(bug);
-    this.setState({bugs: bugsModified});
+    $.ajax({
+      type: 'POST', url: '/api/bugs', contentType: 'application/json',
+      data: JSON.stringify(bug),
+      success: function(data) {
+        var bug = data;
+        // Chúng ta sẽ không sửa state thay vào đó sẽ copy state
+        var bugsModified = this.state.bugs.concat(bug);
+        this.setState({bugs: bugsModified});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        // Nên sửa logic để thông báo lỗi cho người dùng ở đây.
+        console.log("Lỗi khi thêm bug:", err);
+      }
+    });
   }
 });
 

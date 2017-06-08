@@ -1,0 +1,14 @@
+{
+  "name": "codehub_mern_tutorial",
+  "version": "1.0.0",
+  "description": "Mongodb, Express.js, React & Node.js Tutorial - Codehub.vn",
+  "main": "webapp.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Codehub.vn - http://www.codehub.vn",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}

@@ -70,14 +70,9 @@ var BugAdd = React.createClass({
   }
 });
 
-var bugData = [
-  {id: 1, priority: 'P1', status:'Open', owner:'Jessica Bánh Bèo', title:'Jessica Bánh Bèo'},
-  {id: 2, priority: 'P2', status:'New', owner:'Eddie Tí Tèo', title:'Thiếu canh lề CSS cho văn bản trong table'},
-];
-
 var BugList = React.createClass({
   getInitialState: function() {
-    return {bugs: bugData};
+    return {bugs: []};
   },
   render: function() {
     console.log("Rendering bug list, số lượng item:", this.state.bugs.length);
@@ -91,6 +86,13 @@ var BugList = React.createClass({
         <BugAdd addBug={this.addBug} />
       </div>
     )
+  },
+
+  componentDidMount: function() {
+    $.ajax('/api/bugs').done(function(data) {
+      this.setState({bugs: data});
+    }.bind(this));
+    // Cần thêm logic xử lý lỗi nếu triển khai trên môi trường production.
   },
 
   addBug: function(bug) {

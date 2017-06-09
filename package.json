@@ -23,6 +23,7 @@
   "dependencies": {
     "babel-preset-react": "^6.24.1",
     "body-parser": "^1.17.2",
-    "express": "^4.15.3"
+    "express": "^4.15.3",
+    "mongodb": "^2.2.28"
   }
 }

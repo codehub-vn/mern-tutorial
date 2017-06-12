@@ -5,8 +5,12 @@ var BugFilter = React.createClass({
   render: function() {
     console.log("Rendering BugFilter");
     return (
-      <div>Hiển thị filter ở đây.</div>
+      <button onClick={this.submit}>Lọc Kết Quả</button>
     )
+  },
+
+  submit: function(e) {
+    this.props.submitHandler({priority: "P1"});
   }
 });
 

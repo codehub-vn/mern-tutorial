@@ -54,7 +54,7 @@ var BugList = React.createClass({
     return (
       <div>
         <h1>Ứng Dụng Bug Tracker</h1>
-        <BugFilter />
+        <BugFilter submitHandler={this.loadData}/>
         <hr />
         <BugTable bugs={this.state.bugs}/>
         <hr />
@@ -64,7 +64,11 @@ var BugList = React.createClass({
   },
 
   componentDidMount: function() {
-    $.ajax('/api/bugs').done(function(data) {
+    this.loadData({});
+  },
+
+  loadData: function(filter) {
+    $.ajax('/api/bugs', {data: filter}).done(function(data) {
       this.setState({bugs: data});
     }.bind(this));
     // Cần thêm logic xử lý lỗi nếu triển khai trên môi trường production.

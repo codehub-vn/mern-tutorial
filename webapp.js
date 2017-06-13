@@ -1,12 +1,14 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
 
 var app = express();
 var db;
 
 app.use(express.static('static'));
 
+/* Trả về danh sách các record đã được filter */
 app.get('/api/bugs', function(req, res) {
   console.log("Query string", req.query);
   var filter = {};
@@ -21,6 +23,8 @@ app.get('/api/bugs', function(req, res) {
 });
 
 app.use(bodyParser.json());
+
+/* Thêm record vào DB */
 app.post('/api/bugs/', function(req, res) {
   console.log("Req body:", req.body);
   var newBug = req.body;
@@ -29,6 +33,13 @@ app.post('/api/bugs/', function(req, res) {
     db.collection("bugs").find({_id: newId}).next(function(err, doc) {
       res.json(doc);
     });
+  });
+});
+
+/* Lấy về data của một record */
+app.get('/api/bugs/:id', function(req, res) {
+  db.collection("bugs").findOne({_id: ObjectId(req.params.id)}, function(err, bug) {
+    res.json(bug);
   });
 });
 
